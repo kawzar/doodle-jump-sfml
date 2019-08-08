@@ -3,10 +3,12 @@
 
 #include "pch.h"
 #include <iostream>
+#include "Game.h"
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	Game* game = new Game();
+	game->Loop();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
