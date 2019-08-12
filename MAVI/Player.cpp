@@ -47,22 +47,15 @@ bool Player::intersects(Vector2f point) {
 }
 
 void Player::updateMovement() {
-	if (!isGrounded)
-	{
-		velocityY += gravity;
-	} 
-	else
-	{
-		velocityY = 0.0f;
-	}
 
+	velocityY += gravity;
 	velocityX += accelerationX;
 	velocityY += accelerationY;
 
 	x += velocityX;
 	y += velocityY;
 
-	isGrounded = y >= 200;
+	isGrounded = y >= 800;
 
 	/*if (y > floor) {
 		y = floor;
@@ -79,8 +72,13 @@ void Player::move(float velocity) {
 }
 
 void Player::jump() {
-	if (isGrounded) {
-		isGrounded = false;
 		velocityY = -15.0f;
-	}
+}
+
+FloatRect Player::getBounds() {
+	return _sprite.getGlobalBounds();
+}
+
+Vector2f Player::getColliderPosition() {
+	return Vector2f(_sprite.getPosition());
 }

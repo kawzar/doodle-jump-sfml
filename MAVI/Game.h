@@ -19,9 +19,10 @@ private:
 	RenderWindow *window;
 	Texture txBackground;
 	Sprite background;
+	View view;
 
 	int width, height;
-	float currentYPos;
+	float currentYPos, cameraYPosition;
 	list<Platform*> platforms;
 	Player* player;
 

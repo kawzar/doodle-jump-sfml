@@ -25,6 +25,8 @@ void Game::InitWindow() {
 	window = new RenderWindow(VideoMode(width, height), "Doodle Jump");
 	window->setMouseCursorVisible(true);
 	window->setFramerateLimit(60);
+	view = View(Vector2f(width / 2, height / 2), Vector2f(width, height));
+	cameraYPosition = height / 2;
 	//txBackground.loadFromFile("Images/mundo_fondo.jpg");
 	//background.setTexture(txBackground);
 }
@@ -34,6 +36,10 @@ void Game::Update() {
 
 	for (std::list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
 		(*it)->update();
+
+		if ((*it)->intersects(player->getColliderPosition())) {
+			player->jump();
+		}
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -48,6 +54,13 @@ void Game::Update() {
 	{
 		player->move(0.0f);
 	}
+
+	if (player->getColliderPosition().y > cameraYPosition) {
+		cameraYPosition = view.getCenter().y + 100;
+		view.setCenter(view.getCenter().x, cameraYPosition);
+		window->setView(view);
+	}
+	
 }
 
 void Game::Draw() {

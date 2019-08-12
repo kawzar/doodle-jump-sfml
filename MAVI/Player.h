@@ -13,9 +13,10 @@ public:
 	void update();
 	bool intersects(FloatRect rect);
 	bool intersects(Vector2f point);
-
 	void move(float velocity);
 	void jump();
+	FloatRect getBounds();
+	Vector2f getColliderPosition();
 
 
 private:
