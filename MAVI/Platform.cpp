@@ -9,7 +9,6 @@ Platform::Platform(Vector2f position)
 {
 	_tx.loadFromFile("Images/platform1.png");
 	_sprite.setTexture(_tx);
-	_sprite.setScale(0.1, 0.1);
 	_sprite.setOrigin(_tx.getSize().x / 2, _tx.getSize().y);
 
 	x = position.x;
