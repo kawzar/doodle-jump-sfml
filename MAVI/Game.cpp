@@ -7,6 +7,7 @@ Game::Game()
 	height = 800;
 	width = 600;
 	currentYPos = height;
+	player = new Player(Vector2f(300, 100));
 	InitWindow();
 
 	for (int i = 0; i < 5; i++) {
@@ -29,13 +30,30 @@ void Game::InitWindow() {
 }
 
 void Game::Update() {
+	player->update();
+
 	for (std::list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
 		(*it)->update();
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		player->move(-10.0f);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		player->move(10.0f);
+	}
+	else
+	{
+		player->move(0.0f);
 	}
 }
 
 void Game::Draw() {
 	window->clear();
+	player->draw(window);
+
 	for (std::list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
 		(*it)->draw(window);
 	}
