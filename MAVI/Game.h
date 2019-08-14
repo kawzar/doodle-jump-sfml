@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include <list>
 #include "Player.h"
+#include "PlatformPool.h"
 
 using namespace sf;
 using namespace std;
@@ -25,6 +26,7 @@ private:
 	float currentYPos, cameraYPosition;
 	list<Platform*> platforms;
 	Player* player;
+	PlatformPool* pool;
 
 	void Update();
 	void Draw();
