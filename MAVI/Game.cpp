@@ -1,13 +1,15 @@
 #include "pch.h"
 #include "Game.h"
+#include <string>
+
 
 
 Game::Game()
 {
 	height = 800;
 	width = 600;
-	currentYPos = height*2;
-	player = new Player(Vector2f(300, 100));
+	currentYPos = height + 200;
+	player = new Player(Vector2f(300, 0));
 	pool = new PlatformPool();
 	InitWindow();
 
@@ -28,6 +30,15 @@ void Game::InitWindow() {
 	window->setFramerateLimit(60);
 	view = View(Vector2f(width / 2, height / 2), Vector2f(width, height));
 	cameraYPosition = height / 2;
+
+	if (!font.loadFromFile("Less.otf"))
+	{
+		cout << "Couldn't load font";
+	}
+
+	txtMax = Text(std::to_string(maxMeters), font, 15);
+	txtMax.setPosition(15, 15);
+
 	//txBackground.loadFromFile("Images/mundo_fondo.jpg");
 	//background.setTexture(txBackground);
 }
@@ -40,7 +51,11 @@ void Game::Update() {
 
 	sf::FloatRect currentViewRect(viewCenter - viewSize / 2.f, viewSize);
 
-	pool->Update(viewCenter.y + viewSize.y, viewCenter.y +viewSize.y, currentViewRect, player);
+	pool->Update(viewCenter.y + viewSize.y, viewCenter.y + viewSize.y, currentViewRect, player);
+
+	maxMeters = std::max(player->getColliderPosition().y * -1, maxMeters);
+	txtMax.setString(std::to_string(maxMeters));
+	txtMax.setPosition(15, viewCenter.y + viewSize.y / 2 - 15);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && player->getColliderPosition().x > 10)
 	{
@@ -55,8 +70,9 @@ void Game::Update() {
 		player->move(0.0f);
 	}
 
-	if (player->getColliderPosition().y < cameraYPosition - 100) {
-		for (int i = 0; i < 10; i++) {
+	if (player->getColliderPosition().y < cameraYPosition) {
+
+		for (int i = 0; i < 15; i++) {
 			SpawnPlatforms();
 		}
 
@@ -64,13 +80,14 @@ void Game::Update() {
 		view.setCenter(view.getCenter().x, cameraYPosition);
 		window->setView(view);
 	}
-	
+
 }
 
 void Game::Draw() {
 	window->clear();
 	pool->Draw(window);
 	player->draw(window);
+	window->draw(txtMax);
 	window->display();
 }
 
@@ -82,13 +99,10 @@ void Game::Loop() {
 }
 
 void Game::SpawnPlatforms() {
-
-	if (currentYPos <= cameraYPosition + height / 2) {
-		for (int i = 0; i < 3; i++) {
-			int xPos = std::rand() % (width + 1);
-			pool->AddPlatform(Vector2f(xPos, currentYPos));
-		}
+	currentYPos -= 50.f;
+	int maxPlatforms = std::rand() % 2 + 1;
+	for (int i = 0; i < 2; i++) {
+		int xPos = std::rand() % (width - 99) + 50;
+		pool->AddPlatform(Vector2f(xPos, currentYPos));
 	}
-
-	currentYPos -= 75.0f;
 }

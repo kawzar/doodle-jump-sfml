@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 
@@ -17,6 +18,8 @@ public:
 	void jump();
 	FloatRect getBounds();
 	Vector2f getColliderPosition();
+	SoundBuffer sb;
+	Sound sound;
 
 
 private:

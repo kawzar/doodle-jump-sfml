@@ -10,6 +10,9 @@ Player::Player(Vector2f position)
 
 	x = position.x;
 	y = position.y;
+
+	sb.loadFromFile("Sounds/smw_jump.wav");
+	sound.setBuffer(sb);
 }
 
 
@@ -73,6 +76,7 @@ void Player::move(float velocity) {
 
 void Player::jump() {
 		velocityY = -15.0f;
+		sound.play();
 }
 
 FloatRect Player::getBounds() {

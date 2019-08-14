@@ -24,9 +24,14 @@ private:
 
 	int width, height;
 	float currentYPos, cameraYPosition;
+	bool isGameOver = false;
+	float maxMeters;
 	list<Platform*> platforms;
 	Player* player;
 	PlatformPool* pool;
+	Text txtMax;
+	Text txtGameOver;
+	Font font;
 
 	void Update();
 	void Draw();

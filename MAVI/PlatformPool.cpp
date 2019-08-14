@@ -18,8 +18,8 @@ void PlatformPool::AddPlatform(Vector2f position) {
 	bool added = false;
 	for (std::list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
 		if (!(*it)->isActive()) {
-			(*it)->setPosition(position);
 			(*it)->setActive(true);
+			(*it)->setPosition(position);
 			added = true;
 			break;
 		}
@@ -27,14 +27,14 @@ void PlatformPool::AddPlatform(Vector2f position) {
 
 	if (!added) {
 		Platform* p = new Platform(position);
-		platforms.push_back(p);
 		p->setActive(true);
+		platforms.push_back(p);
 	}
 }
 
 void PlatformPool::Update(float maxY, float minY, FloatRect view, Player* player) {
 	for (std::list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
-		if ((*it)->isActive() && (*it)->getPosition().y > maxY +100){
+		if ((*it)->isActive() && (*it)->getPosition().y > maxY + 100){
 			(*it)->setActive(false);
 		}
 
