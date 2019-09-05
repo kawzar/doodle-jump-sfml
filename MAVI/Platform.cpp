@@ -59,4 +59,5 @@ void Platform::setPosition(Vector2f pos)
 {
 	x = pos.x;
 	y = pos.y;
+	_sprite.setPosition(x, y);
 }

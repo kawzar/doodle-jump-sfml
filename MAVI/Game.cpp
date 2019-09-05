@@ -13,7 +13,7 @@ Game::Game()
 	pool = new PlatformPool();
 	InitWindow();
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 100; i++) {
 		SpawnPlatforms();
 	}
 }
@@ -51,10 +51,10 @@ void Game::Update() {
 
 	sf::FloatRect currentViewRect(viewCenter - viewSize / 2.f, viewSize);
 
-	pool->Update(viewCenter.y + viewSize.y, viewCenter.y + viewSize.y, currentViewRect, player);
+	pool->Update(viewCenter.y + viewSize.y / 2.f, viewCenter.y, currentViewRect, player);
 
 	maxMeters = std::max(player->getColliderPosition().y * -1, maxMeters);
-	txtMax.setString(std::to_string(maxMeters));
+	txtMax.setString(std::to_string((int)maxMeters));
 	txtMax.setPosition(15, viewCenter.y + viewSize.y / 2 - 15);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && player->getColliderPosition().x > 10)
@@ -72,7 +72,7 @@ void Game::Update() {
 
 	if (player->getColliderPosition().y < cameraYPosition) {
 
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 3; i++) {
 			SpawnPlatforms();
 		}
 
@@ -100,8 +100,8 @@ void Game::Loop() {
 
 void Game::SpawnPlatforms() {
 	currentYPos -= 50.f;
-	int maxPlatforms = std::rand() % 2 + 1;
-	for (int i = 0; i < 2; i++) {
+	int maxPlatforms = std::rand() % 3 + 1;
+	for (int i = 0; i < maxPlatforms; i++) {
 		int xPos = std::rand() % (width - 99) + 50;
 		pool->AddPlatform(Vector2f(xPos, currentYPos));
 	}

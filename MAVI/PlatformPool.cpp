@@ -17,11 +17,10 @@ PlatformPool::~PlatformPool()
 void PlatformPool::AddPlatform(Vector2f position) {
 	bool added = false;
 	for (std::list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
-		if (!(*it)->isActive()) {
-			(*it)->setActive(true);
+		if (!(*it)->isActive() && !added) {
 			(*it)->setPosition(position);
+			(*it)->setActive(true);
 			added = true;
-			break;
 		}
 	}
 
@@ -34,7 +33,7 @@ void PlatformPool::AddPlatform(Vector2f position) {
 
 void PlatformPool::Update(float maxY, float minY, FloatRect view, Player* player) {
 	for (std::list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
-		if ((*it)->isActive() && (*it)->getPosition().y > maxY + 100){
+		if ((*it)->isActive() && (*it)->getPosition().y > maxY){
 			(*it)->setActive(false);
 		}
 
