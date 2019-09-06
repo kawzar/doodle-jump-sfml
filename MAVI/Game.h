@@ -31,11 +31,15 @@ private:
 	PlatformPool* pool;
 	Text txtMax;
 	Text txtGameOver;
+	Text txtRestart;
 	Font font;
 
 	void Update();
 	void Draw();
 	void InitWindow();
 	void SpawnPlatforms();
+	void InitGame();
+	void ShowGameOverScreen();
+	void EventHandling();
 };
 
